@@ -1,0 +1,127 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cgsbs"
+version = "0.1.0"
+description = "Context-Guided Semantic Beam Search for patient-specific subgraph retrieval from biomedical ontologies"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [
+    { name = "CGSBS Demo Authors" }
+]
+keywords = [
+    "biomedical-ontology",
+    "snomed",
+    "umls",
+    "knowledge-graph",
+    "beam-search",
+    "clinical-nlp",
+    "rdf",
+    "sparql",
+    "graphdb",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "rdflib>=7.0.0",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+graphdb = [
+    "SPARQLWrapper>=2.0.0",
+    "requests>=2.28.0",
+]
+umls = [
+    "pyumls-similarity>=0.1.0; platform_system != 'Windows'",
+]
+nlp = [
+    "spacy>=3.7.0",
+    "scispacy>=0.5.0",
+    "requests>=2.28.0",
+]
+embeddings = [
+    "sentence-transformers>=2.2.0",
+]
+reasoner = [
+    "owlrl>=6.0.2",
+]
+all = [
+    "cgsbs[graphdb,nlp,embeddings,reasoner]",
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.4.0",
+    "black>=24.0.0",
+    "mypy>=1.8.0",
+]
+
+[project.scripts]
+cgsbs-demo = "cgsbs.demo:main"
+
+[project.urls]
+Homepage = "https://github.com/YPCC/cgsbs-demo"
+Documentation = "https://github.com/YPCC/cgsbs-demo#readme"
+Repository = "https://github.com/YPCC/cgsbs-demo"
+Issues = "https://github.com/YPCC/cgsbs-demo/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cgsbs = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "UP",
+    "B",
+    "SIM",
+    "C4",
+    "RUF",
+]
+ignore = [
+    "E501",
+    "B008",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["cgsbs"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short"

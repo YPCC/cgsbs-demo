@@ -1,0 +1,87 @@
+# CGSBS runtime configuration
+# Switch backends without changing algorithm code.
+# Override with --config path/to/other.yaml or environment variables.
+
+# ------------------------------------------------------------------
+# 1. Ontology / data source
+# ------------------------------------------------------------------
+ontology:
+  # "synthetic" | "local_rdf" | "bioportal"
+  source: synthetic
+  paths:
+    snomed: null
+    rxnorm: null
+    loinc: null
+    mappings: null
+  bioportal:
+    api_key: null
+    ontologies: ["SNOMEDCT", "RXNORM", "LOINC"]
+    named_graphs: true
+
+# ------------------------------------------------------------------
+# 2. Graph backend
+# ------------------------------------------------------------------
+graph:
+  # "rdflib" | "graphdb"
+  backend: rdflib
+  graphdb:
+    endpoint: "http://localhost:7200/repositories/clinical-onto"
+    username: null
+    password: null
+    use_path_search: true
+
+# ------------------------------------------------------------------
+# 3. Similarity / relatedness provider (S_UMLS-rel, S_UMLS-sim)
+# ------------------------------------------------------------------
+similarity:
+  # "synthetic" | "umls" | "embeddings"
+  backend: synthetic
+  umls:
+    package: "pyumls-similarity"
+    measure: "lch"
+    mysql:
+      host: localhost
+      database: umls
+      user: null
+      password: null
+  embeddings:
+    model: "sentence-transformers/all-MiniLM-L6-v2"
+
+# ------------------------------------------------------------------
+# 4. Patient context extractor
+# ------------------------------------------------------------------
+context:
+  # "deterministic" | "scispacy" | "bioportal_annotator" | "llm"
+  extractor: deterministic
+  scispacy:
+    model: "en_core_sci_sm"
+    linker: "umls"
+    threshold: 0.7
+  bioportal_annotator:
+    api_key: null
+    ontologies: "SNOMEDCT,RXNORM,LOINC"
+    longest_only: true
+  llm:
+    provider: "openai"
+    model: "gpt-4o-mini"
+    system_prompt: null
+
+# ------------------------------------------------------------------
+# Scoring weights (paper Section 10)
+# ------------------------------------------------------------------
+scoring:
+  alpha: 0.30
+  beta: 0.20
+  gamma: 0.15
+  delta: 0.10
+  epsilon: 0.10
+  zeta: 0.10
+  eta: 0.05
+  lambda: 0.08
+
+search:
+  beam_width: 6
+  max_depth: 3
+  relevance_threshold: 0.38
+  envelope_max_nodes: 80
+  envelope_max_depth: 3

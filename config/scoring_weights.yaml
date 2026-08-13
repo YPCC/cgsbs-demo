@@ -1,0 +1,18 @@
+# ScoringWeights corresponding to the paper formula (Section 10)
+#
+# S(u,r,P,C) = α S_ctx + β S_rel + γ S_UMLS-rel + δ S_UMLS-sim
+#            + ε S_type + ζ S_path + η S_prov − λ D(P)
+
+alpha: 0.30    # context similarity
+beta: 0.20     # relationship policy π(r|C)
+gamma: 0.15    # UMLS relatedness
+delta: 0.10    # UMLS similarity
+epsilon: 0.10  # semantic-type compatibility
+zeta: 0.10     # path coherence
+eta: 0.05      # provenance / source vocabulary
+lambda: 0.08   # distance penalty
+
+# Beam-search hyper-parameters
+beam_width: 6
+max_depth: 3
+relevance_threshold: 0.38

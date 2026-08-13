@@ -1,0 +1,9 @@
+rdflib>=7.0.0
+PyYAML>=6.0
+# Optional later:
+# SPARQLWrapper>=2.0.0
+# sentence-transformers>=2.2.0
+# owlrl>=6.0.2
+# graphdb-python / SPARQLWrapper for GraphDB
+# scispacy + spacy for NLP
+# pyumls-similarity for real UMLS measures

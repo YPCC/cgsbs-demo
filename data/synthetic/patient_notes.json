@@ -1,0 +1,41 @@
+{
+  "notes": [
+    {
+      "id": "note_renal_metformin",
+      "text": "Patient with type 2 diabetes has worsening renal function, eGFR 32 mL/min/1.73m², and is taking metformin. HbA1c remains elevated.",
+      "description": "Primary demonstration scenario - renal + metformin context",
+      "expected_high_relevance": [
+        "snomed:127013003",
+        "snomed:236423003",
+        "loinc:33914-3",
+        "loinc:2160-0",
+        "rxnorm:6809"
+      ],
+      "expected_low_relevance": [
+        "snomed:4855003",
+        "snomed:230572002"
+      ]
+    },
+    {
+      "id": "note_vision",
+      "text": "Patient with type 2 diabetes reports blurred vision and floaters. Fundoscopic exam pending.",
+      "description": "Same anchor (T2DM), ophthalmic context - should surface retinopathy",
+      "expected_high_relevance": [
+        "snomed:4855003"
+      ],
+      "expected_low_relevance": [
+        "snomed:127013003",
+        "rxnorm:6809"
+      ]
+    },
+    {
+      "id": "note_foot",
+      "text": "Patient with type 2 diabetes has a non-healing foot ulcer and bilateral foot numbness.",
+      "description": "Same anchor, neuropathic / vascular context",
+      "expected_high_relevance": [
+        "snomed:230572002",
+        "snomed:421365002"
+      ]
+    }
+  ]
+}
